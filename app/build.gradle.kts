@@ -43,4 +43,5 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     implementation("edu.umg.programacion2:finanzas-core:1.0.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("androidx.biometric:biometric:1.1.0")
 }
