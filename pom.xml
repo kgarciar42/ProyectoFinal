@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Coordenadas de MI libreria. Android la pide EXACTAMENTE asi:
+           implementation("edu.umg.programacion2:finanzas-core:1.0.0")
+                           ^groupId              ^artifactId   ^version -->
+    <groupId>edu.umg.programacion2</groupId>
+    <artifactId>finanzas-core</artifactId>
+    <version>1.0.1</version>
+    <packaging>jar</packaging>
+
+    <name>finanzas-core</name>
+    <description>Libreria Kotlin puro de la app de control de gastos: gastos, ingresos, balance y control mensual.</description>
+
+    <properties>
+        <kotlin.version>2.1.20</kotlin.version>
+        <!-- Java 11: Android lee este bytecode sin problemas. -->
+        <java.version>11</java.version>
+        <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Menu de consola para probar sin Android: mvn compile exec:java -->
+        <exec.mainClass>edu.umg.programacion2.finanzas.consola.MainKt</exec.mainClass>
+    </properties>
+
+    <dependencies>
+        <!-- La UNICA dependencia es la libreria estandar de Kotlin (nada de Android). -->
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+
+        <plugins>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
