@@ -14,6 +14,7 @@ import edu.umg.programacion2.appgastos.avisos.AvisosFinancieros
 import edu.umg.programacion2.appgastos.avisos.Notificaciones
 import edu.umg.programacion2.appgastos.datos.Datos
 import edu.umg.programacion2.appgastos.logica.Periodo
+import edu.umg.programacion2.appgastos.logica.ReglasMovimientos
 import edu.umg.programacion2.appgastos.red.TipoCambio
 import edu.umg.programacion2.appgastos.seguridad.PantallaBloqueo
 import edu.umg.programacion2.appgastos.seguridad.PantallaProtegida
@@ -29,7 +30,7 @@ import kotlinx.coroutines.launch
 
 // Pantalla principal.
 // Solo coordina y conecta los botones con las piezas que hacen el trabajo.
-// Los datos vienen de mi librería finanzas-core y se guardan en SQLite.
+// Los datos vienen de mi librería finanzas-core y se guardan en SQLite .
 class MainActivity : PantallaProtegida() {
 
     private val control get() = Datos.control
@@ -133,6 +134,11 @@ class MainActivity : PantallaProtegida() {
     }
 
     private fun abrirRegistro(editando: Any?) {
+        // un ingreso de Q 5,000 o más está protegido no se abre para editarlo, solo aviso
+        if (editando != null && ReglasMovimientos.estaProtegido(editando)) {
+            Toast.makeText(this, ReglasMovimientos.MENSAJE_PROTEGIDO, Toast.LENGTH_LONG).show()
+            return
+        }
         hojaRegistro.abrir(editando, periodo.fechaPorDefecto(fechaHoy()), categorias)
     }
 

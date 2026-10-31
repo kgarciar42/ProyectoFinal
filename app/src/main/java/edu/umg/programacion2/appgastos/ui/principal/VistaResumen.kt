@@ -60,7 +60,7 @@ class VistaResumen(private val activity: AppCompatActivity) {
     private fun pintarBalance(periodo: Periodo, balance: BalanceMensual) {
         tvTituloBalance.text = if (periodo.porAnio) "Balance del año" else "Balance del mes"
         tvBalance.text = Estilo.dinero(balance.saldo)
-        tvEstado.text = balance.estado.mensaje
+        tvEstado.text = textoEstado(balance)
         tvIngresos.text = "↑ ${Estilo.dinero(balance.totalIngresos)}"
         tvGastos.text = "↓ ${Estilo.dinero(balance.totalGastos)}"
         val vaMal = balance.estado == EstadoBalance.NEGATIVO
@@ -73,6 +73,15 @@ class VistaResumen(private val activity: AppCompatActivity) {
                 EstadoBalance.SIN_MOVIMIENTOS -> Estilo.GRIS
             }
         )
+    }
+
+    // El mensaje de siempre si ya se gastó el 80 % o más, le agrego cuánto le queda disponible
+    private fun textoEstado(balance: BalanceMensual): String {
+        if (balance.estado != EstadoBalance.CUIDADO) return balance.estado.mensaje
+        val libre = 100 - balance.porcentajeGastado
+        val disponible = if (libre >= 1) "Te queda el ${libre.roundToInt()} % de tus ingresos para gastar"
+        else "Casi no te queda nada de tus ingresos para gastar"
+        return "${balance.estado.mensaje}\n$disponible"
     }
 
     // La dona con las categorías de mayor a menor gasto

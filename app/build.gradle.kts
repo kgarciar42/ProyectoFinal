@@ -44,7 +44,8 @@ dependencies {
 
     // Mi librería versión 1.0.1, la que tiene categorías
     implementation("edu.umg.programacion2:finanzas-core:1.0.1")
+    // aca se ocupan las corrutinas para manipular datos sin que la pantalla se congele
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
-    // Huella o rostro
+    // para huella
     implementation("androidx.biometric:biometric:1.1.0")
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import edu.umg.programacion2.appgastos.datos.Datos
+import edu.umg.programacion2.appgastos.logica.ReglasMovimientos
 import edu.umg.programacion2.appgastos.ui.comun.Estilo
 import edu.umg.programacion2.finanzas.modelo.Gasto
 import edu.umg.programacion2.finanzas.modelo.Ingreso
@@ -15,6 +16,11 @@ import kotlinx.coroutines.launch
 object DialogoEliminar {
 
     fun confirmar(activity: AppCompatActivity, original: Any, alEliminado: (fecha: String) -> Unit) {
+        // los ingresos de Q 5,000 o más están protegidos ni siquiera pregunto, solo aviso
+        if (ReglasMovimientos.estaProtegido(original)) {
+            Toast.makeText(activity, ReglasMovimientos.MENSAJE_PROTEGIDO, Toast.LENGTH_LONG).show()
+            return
+        }
         val (titulo, monto, fecha) = when (original) {
             is Gasto -> Triple(original.descripcion, original.monto, original.fecha)
             is Ingreso -> Triple(original.descripcion, original.monto, original.fecha)

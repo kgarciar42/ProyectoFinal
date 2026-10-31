@@ -129,6 +129,7 @@
                     android:id="@+id/tvEstado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:textColor="@color/verde"
                     android:textSize="13sp"
                     android:textStyle="bold"
