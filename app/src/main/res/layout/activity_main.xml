@@ -1,156 +1,434 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Pantalla del control mensual. Va en app/src/main/res/layout/activity_main.xml -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Pantalla principal estilo dashboard oscuro -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/fondo_app"
+    tools:context=".ui.principal.MainActivity">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="104dp">
 
-        <!-- 1. Cada mes es un control nuevo -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 1. El mes que estoy viendo -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnAnterior"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/fondo_circulo"
+                    android:gravity="center"
+                    android:text="‹"
+                    android:textColor="@color/texto_principal"
+                    android:textSize="24sp" />
+
+                <!-- Al tocar el mes se abre el selector de mes -->
+                <TextView
+                    android:id="@+id/tvMes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textColor="@color/texto_principal"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="Octubre 2026  ▾" />
+
+                <TextView
+                    android:id="@+id/btnSiguiente"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/fondo_circulo"
+                    android:gravity="center"
+                    android:text="›"
+                    android:textColor="@color/texto_principal"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <!-- Botón para escoger control por mes o por año -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/fondo_toggle"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/btnPorMes"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Por mes"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btnPorAnio"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Por año"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- 2. Tarjeta del balance -->
+            <LinearLayout
+                android:id="@+id/cardBalance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/fondo_balance"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tvTituloBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Balance del mes"
+                    android:textColor="@color/texto_claro"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    tools:text="Q 3,450.00" />
+
+                <TextView
+                    android:id="@+id/tvEstado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/verde"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    tools:text="Vamos bien" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvIngresos"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/verde"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="↑ Q 5,000.00" />
+
+                    <TextView
+                        android:id="@+id/tvGastos"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/rojo"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="↓ Q 1,550.00" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 3. Gráfica de dona con su leyenda -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/fondo_tarjeta"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvTituloGrafica"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/texto_principal"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    tools:text="Gastos del mes (Octubre)" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="160dp"
+                        android:layout_height="160dp">
+
+                        <edu.umg.programacion2.appgastos.ui.comun.GraficaDona
+                            android:id="@+id/grafica"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvTotalGrafica"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/texto_principal"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                tools:text="Q 1,980.00" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="gastado"
+                                android:textColor="@color/texto_secundario"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <!-- Aquí se agregan las filas de la leyenda desde el código -->
+                    <LinearLayout
+                        android:id="@+id/contenedorLeyenda"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 4. Movimientos del mes -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/fondo_tarjeta"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvTituloMovimientos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Movimientos del mes"
+                    android:textColor="@color/texto_principal"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Toca uno para editarlo. Mantenlo presionado para eliminarlo."
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="12sp" />
+
+                <!-- Aquí se agregan las filas desde el código -->
+                <LinearLayout
+                    android:id="@+id/contenedorMovimientos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/tvSinMovimientos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="Mes nuevo, control nuevo. Toca + para registrar."
+                    android:textColor="@color/texto_secundario"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 5. Barra de abajo con el botón + en medio -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/fondo_barra"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnAnterior"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="◀" />
-
-            <TextView
-                android:id="@+id/tvMes"
+            <LinearLayout
+                android:id="@+id/navInicio"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="Octubre 2026" />
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnSiguiente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="▶" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🏠"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Inicio"
+                    android:textColor="@color/acento"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/navHistorial"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📅"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Historial"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <!-- Espacio del medio, el + va encima la palabra Registrar también abre la hoja -->
+            <LinearLayout
+                android:id="@+id/navRegistrar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="bottom|center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Registrar"
+                    android:textColor="@color/acento"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/navEstadisticas"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📊"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estadísticas"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/navAjustes"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚙️"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ajustes"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="11sp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- 2. Balance del mes -->
+        <!-- El botón + flotante -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Balance del mes" />
-
-        <TextView
-            android:id="@+id/tvBalance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            tools:text="Q 4444.50" />
-
-        <TextView
-            android:id="@+id/tvEstado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            tools:text="Vamos bien" />
-
-        <TextView
-            android:id="@+id/tvIngresos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="Ingresos: Q 4500.00" />
-
-        <TextView
-            android:id="@+id/tvGastos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Gastos: Q 55.50" />
-
-        <!-- 3. Formulario para registrar -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Nuevo movimiento"
-            android:textSize="18sp"
+            android:id="@+id/btnRegistrar"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_gravity="top|center_horizontal"
+            android:background="@drawable/fondo_fab"
+            android:elevation="8dp"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="@color/fondo_app"
+            android:textSize="32sp"
             android:textStyle="bold" />
-
-        <RadioGroup
-            android:id="@+id/rgTipo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rbGasto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Gasto" />
-
-            <RadioButton
-                android:id="@+id/rbIngreso"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Ingreso" />
-        </RadioGroup>
-
-        <!-- Muestra las categorias gasto o los tipos de ingreso -->
-        <Spinner
-            android:id="@+id/spOpcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/etDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Descripción (ej. Almuerzo, Salario)"
-            android:inputType="textCapSentences" />
-
-        <EditText
-            android:id="@+id/etMonto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Monto en quetzales"
-            android:inputType="numberDecimal" />
-
-        <Button
-            android:id="@+id/btnGuardar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Guardar" />
-
-        <!-- 4. Lista simple de los movimientos del mes -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Movimientos del mes"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvMovimientos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:lineSpacingExtra="4dp"
-            tools:text="+ 2026-10-01  Salario (Salario)  Q 4500.00" />
-    </LinearLayout>
-</ScrollView>
+    </FrameLayout>
+</FrameLayout>

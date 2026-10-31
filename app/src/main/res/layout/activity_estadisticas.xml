@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pantalla de Estadísticas: barras de 6 meses, comparación y proyección -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_app"
+    tools:context=".ui.estadisticas.EstadisticasActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Encabezado -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btnVolver"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/fondo_circulo"
+                android:gravity="center"
+                android:text="‹"
+                android:textColor="@color/texto_principal"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:text="Estadísticas"
+                android:textColor="@color/texto_principal"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Cambiar el mes de las estadísticas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btnMesAnterior"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/fondo_circulo"
+                android:gravity="center"
+                android:text="‹"
+                android:textColor="@color/texto_principal"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tvMesReferencia"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/texto_principal"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Octubre 2026" />
+
+            <TextView
+                android:id="@+id/btnMesSiguiente"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/fondo_circulo"
+                android:gravity="center"
+                android:text="›"
+                android:textColor="@color/texto_principal"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <!-- ===== 1. Barras de los últimos 6 meses ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/fondo_tarjeta"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📊 Ingresos vs gastos (6 meses)"
+                android:textColor="@color/texto_principal"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="● Ingresos"
+                    android:textColor="@color/verde"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="● Gastos"
+                    android:textColor="@color/rojo"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <edu.umg.programacion2.appgastos.ui.comun.GraficaBarras
+                android:id="@+id/graficaBarras"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Toca una barra para ver las estadísticas de ese mes"
+                android:textColor="@color/texto_secundario"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvResumenBarras"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:lineSpacingExtra="3dp"
+                android:textColor="@color/texto_principal"
+                android:textSize="13sp"
+                tools:text="Mejor mes: Agosto 2026 (Q 1,200.00)" />
+        </LinearLayout>
+
+        <!-- ===== 2. Comparación con el mes anterior ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/fondo_tarjeta"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔁 Comparación con el mes anterior"
+                android:textColor="@color/texto_principal"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvComparacionTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp"
+                tools:text="Octubre vs Septiembre" />
+
+            <TextView
+                android:id="@+id/tvComparacionValor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="▲ 18 % más gasto" />
+
+            <TextView
+                android:id="@+id/tvComparacionDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp"
+                tools:text="Este mes: Q 1,980.00 · Mes anterior: Q 1,680.00" />
+
+            <!-- Aquí van las categorías que más cambiaron (desde el código) -->
+            <LinearLayout
+                android:id="@+id/contenedorComparacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical" />
+        </LinearLayout>
+
+        <!-- ===== 3. Proyección de fin de mes ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/fondo_tarjeta"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔮 Proyección de fin de mes"
+                android:textColor="@color/texto_principal"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvProyeccionValor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                tools:text="-Q 350.00" />
+
+            <TextView
+                android:id="@+id/tvProyeccionTexto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:lineSpacingExtra="3dp"
+                android:textColor="@color/texto_principal"
+                android:textSize="14sp"
+                tools:text="A este ritmo terminarás octubre en negativo." />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progresoMes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:max="100"
+                app:indicatorColor="@color/acento"
+                app:trackColor="@color/borde"
+                app:trackCornerRadius="4dp"
+                app:trackThickness="8dp" />
+
+            <TextView
+                android:id="@+id/tvProyeccionDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="3dp"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp"
+                tools:text="Llevas Q 1,320.00 en 20 días · Promedio Q 66.00 por día · Faltan 11 días" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -41,7 +41,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
+
+    // Mi librería versión 1.0.1, la que tiene categorías
     implementation("edu.umg.programacion2:finanzas-core:1.0.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    // Huella o rostro
     implementation("androidx.biometric:biometric:1.1.0")
 }

@@ -9,7 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-// Guarda en la tabla gasto de SQLite. ControlGastos ni se entera del cambio.
+// Guarda en la tabla gasto de SQLite.
+// ControlGastos ni se entera del cambio.
 // La pantalla no se congela mientras lee o escribe.
 class GastoRepositorySQLite(private val bd: BaseDatos) : GastoRepository {
 

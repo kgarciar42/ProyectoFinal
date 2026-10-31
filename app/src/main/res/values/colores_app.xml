@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mis colores del tema oscuro -->
+<resources>
+    <color name="fondo_app">#0B0F14</color>
+    <color name="tarjeta">#151A21</color>
+    <color name="borde">#232B36</color>
+    <color name="barra">#10151B</color>
+    <color name="texto_principal">#F1F5F9</color>
+    <color name="texto_secundario">#8B98A9</color>
+    <color name="texto_claro">#CBD5E1</color>
+    <color name="acento">#2DD4BF</color>
+    <color name="verde">#4ADE80</color>
+    <color name="rojo">#F87171</color>
+</resources>

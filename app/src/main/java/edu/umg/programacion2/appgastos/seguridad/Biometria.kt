@@ -2,20 +2,32 @@ package edu.umg.programacion2.appgastos.seguridad
 
 import android.content.Context
 import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 
-// Todo lo de huella o rostro
+// Desbloqueo con huella, el bloqueo de pantalla del teléfono PIN, patrón o contraseña.
+// y si el teléfono tiene huella, la ofrece primero.
 object Biometria {
 
-    private const val TIPO = BiometricManager.Authenticators.BIOMETRIC_WEAK
+    private const val TIPOS = BIOMETRIC_WEAK or DEVICE_CREDENTIAL
 
-    // Si el teléfono tiene huella o rostro configurado?
+    // El teléfono tiene qué verificar huella, un PIN/patrón
     fun huellaDisponible(context: Context): Boolean =
-        BiometricManager.from(context).canAuthenticate(TIPO) == BiometricManager.BIOMETRIC_SUCCESS
+        BiometricManager.from(context).canAuthenticate(TIPOS) == BiometricManager.BIOMETRIC_SUCCESS
 
-    // Muestra la ventana del sistema para poner la huella o el rostro
+    // Para explicarle al usuario por qué no se puede activar
+    fun motivo(context: Context): String = when (BiometricManager.from(context).canAuthenticate(TIPOS)) {
+        BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED ->
+            "Tu teléfono no tiene huella ni bloqueo de pantalla (PIN, patrón o contraseña) configurado."
+        BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
+            "El lector de tu teléfono no está disponible en este momento."
+        else -> "Tu teléfono no permite que las apps usen este método."
+    }
+
+    // Muestra la ventanita del sistema: huella, el bloqueo del teléfono
     fun pedirHuella(activity: FragmentActivity, alExito: () -> Unit) {
         val prompt = BiometricPrompt(
             activity,
@@ -28,9 +40,8 @@ object Biometria {
         )
         val info = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Desbloquear la app")
-            .setSubtitle("Usa tu huella o tu rostro")
-            .setNegativeButtonText("Usar PIN")
-            .setAllowedAuthenticators(TIPO)
+            .setSubtitle("Usa tu huella o PIN/Patron")
+            .setAllowedAuthenticators(TIPOS) // con el bloqueo del teléfono no lleva botón "Usar PIN" propio
             .build()
         prompt.authenticate(info)
     }
