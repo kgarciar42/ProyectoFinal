@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- La hoja que sale desde abajo al tocar + -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fondo_hoja"
+    android:orientation="vertical"
+    android:paddingStart="24dp"
+    android:paddingTop="12dp"
+    android:paddingEnd="24dp"
+    android:paddingBottom="28dp">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/fondo_manija" />
+
+    <TextView
+        android:id="@+id/tvTituloHoja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Nuevo movimiento"
+        android:textColor="@color/texto_principal"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/rgTipo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbGasto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/acento"
+            android:checked="true"
+            android:text="Gasto"
+            android:textColor="@color/texto_principal" />
+
+        <RadioButton
+            android:id="@+id/rbIngreso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:buttonTint="@color/acento"
+            android:text="Ingreso"
+            android:textColor="@color/texto_principal" />
+    </RadioGroup>
+
+    <!-- Categoría y el botón para crear una nueva -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Categoría"
+            android:textColor="@color/texto_secundario"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvNuevaCategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="6dp"
+            android:text="+ Nueva"
+            android:textColor="@color/acento"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- La lista con su flechita ▾ a la derecha -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+
+        <Spinner
+            android:id="@+id/spOpcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fondo_campo"
+            android:minHeight="52dp"
+            android:popupBackground="@color/tarjeta" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="16dp"
+            android:text="▾"
+            android:textColor="@color/texto_secundario"
+            android:textSize="18sp" />
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/etDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/fondo_campo"
+        android:hint="Descripción (ej. Supermercado)"
+        android:inputType="textCapSentences"
+        android:minHeight="52dp"
+        android:padding="14dp"
+        android:textColor="@color/texto_principal"
+        android:textColorHint="@color/texto_secundario" />
+
+    <EditText
+        android:id="@+id/etMonto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/fondo_campo"
+        android:hint="Monto en quetzales"
+        android:inputType="numberDecimal"
+        android:minHeight="52dp"
+        android:padding="14dp"
+        android:textColor="@color/texto_principal"
+        android:textColorHint="@color/texto_secundario" />
+
+    <!-- Moneda (solo se ve si activé "Registrar en dólares" en Ajustes) -->
+    <LinearLayout
+        android:id="@+id/grupoMoneda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Moneda"
+            android:textColor="@color/texto_secundario"
+            android:textSize="12sp" />
+
+        <RadioGroup
+            android:id="@+id/rgMoneda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbQuetzales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/acento"
+                android:checked="true"
+                android:text="Quetzales (Q)"
+                android:textColor="@color/texto_principal" />
+
+            <RadioButton
+                android:id="@+id/rbDolares"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:buttonTint="@color/acento"
+                android:text="Dólares (US$)"
+                android:textColor="@color/texto_principal" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvConversion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/acento"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Fecha: al tocarla se abre el calendario -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Fecha"
+        android:textColor="@color/texto_secundario"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvFecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/fondo_campo"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:minHeight="52dp"
+        android:padding="14dp"
+        android:textColor="@color/texto_principal"
+        android:textSize="15sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="20dp"
+        android:text="Guardar"
+        android:textColor="@color/fondo_app"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/acento"
+        app:cornerRadius="14dp" />
+
+    <!-- Solo se ve cuando estoy editando -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEliminar"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="10dp"
+        android:text="Eliminar"
+        android:textColor="@color/rojo"
+        android:visibility="gone"
+        app:cornerRadius="14dp"
+        app:strokeColor="@color/rojo" />
+</LinearLayout>

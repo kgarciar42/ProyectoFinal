@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Para consultar el tipo de cambio (API REST) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Para el recordatorio y las alertas (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Para volver a programar el recordatorio cuando el teléfono se prende -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppGastos"
+        tools:targetApi="31">
+
+        <!-- Pantalla principal (la que abre al tocar el ícono) -->
+        <activity
+            android:name=".ui.principal.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.ajustes.AjustesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.estadisticas.EstadisticasActivity"
+            android:exported="false" />
+
+        <!-- Recordatorio diario (y reprogramarlo al prender el teléfono) -->
+        <receiver
+            android:name=".avisos.RecordatorioReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
